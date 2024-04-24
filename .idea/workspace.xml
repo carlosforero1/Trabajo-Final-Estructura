@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53dc9936-5f60-47df-b9a9-dd0fe0cc71e6" name="Changes" comment="" />
+    <list default="true" id="53dc9936-5f60-47df-b9a9-dd0fe0cc71e6" name="Changes" comment="-Trabajo final de Estructura de datos">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ArbolBinario.py" beforeDir="false" afterPath="$PROJECT_DIR$/ArbolBinario.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BaseDatos.db" beforeDir="false" afterPath="$PROJECT_DIR$/BaseDatos.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interfaz2.py" beforeDir="false" afterPath="$PROJECT_DIR$/interfaz2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sistemaVentas.py" beforeDir="false" afterPath="$PROJECT_DIR$/sistemaVentas.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,6 +34,9 @@
       </map>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -35,6 +44,7 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2fWHRpzr8x2n0138Vl6zgNQiuYD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -46,7 +56,8 @@
     "Python.prueba.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/ACER/PycharmProjects/TrabajoUni/BaseDatos.db",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/ACER/PycharmProjects/TrabajoUni",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -67,7 +78,7 @@
       <recent name="C:\Users\ACER\PycharmProjects\TrabajoUni\ConfiguracionBaseDatos" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.prueba">
+  <component name="RunManager" selected="Python.interfaz2">
     <configuration name="interfaz" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="TrabajoUni" />
       <option name="ENV_FILES" value="" />
@@ -164,15 +175,28 @@
       <workItem from="1713933880606" duration="5000" />
       <workItem from="1713933891445" duration="305000" />
       <workItem from="1713935006956" duration="1506000" />
-      <workItem from="1713981216500" duration="12625000" />
+      <workItem from="1713981216500" duration="15485000" />
     </task>
+    <task id="LOCAL-00001" summary="-Trabajo final de Estructura de datos">
+      <option name="closed" value="true" />
+      <created>1713998628700</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1713998628700</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="-Trabajo final de Estructura de datos" />
+    <option name="LAST_COMMIT_MESSAGE" value="-Trabajo final de Estructura de datos" />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/TrabajoUni$interfaz2.coverage" NAME="interfaz2 Coverage Results" MODIFIED="1713998247354" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/TrabajoUni$interfaz2.coverage" NAME="interfaz2 Coverage Results" MODIFIED="1714002014106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/TrabajoUni$interfaz.coverage" NAME="interfaz Coverage Results" MODIFIED="1713988249272" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/TrabajoUni$prueba.coverage" NAME="prueba Coverage Results" MODIFIED="1713998230569" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>

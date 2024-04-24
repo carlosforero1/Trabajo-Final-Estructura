@@ -1,9 +1,12 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, filedialog
 import sqlite3
 from datetime import datetime
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 
-# Función para conectar a la base de datos
+
 def conectar_db():
     try:
         conexion = sqlite3.connect("BaseDatos.db")
@@ -37,7 +40,6 @@ def agregar_producto():
 
     def limpiar_formulario_producto():
         entry_nombre.delete(0, tk.END)
-        entry_id_producto.delete(0, tk.END)
         entry_precio.delete(0, tk.END)
         entry_cantidad.delete(0, tk.END)
 
@@ -49,12 +51,6 @@ def agregar_producto():
 
     entry_nombre = tk.Entry(ventana_producto)
     entry_nombre.pack(pady=5)
-
-    label_id_producto = tk.Label(ventana_producto, text="ID producto:")
-    label_id_producto.pack(pady=5)
-
-    entry_id_producto = tk.Entry(ventana_producto)
-    entry_id_producto.pack(pady=5)
 
     label_precio = tk.Label(ventana_producto, text="Precio:")
     label_precio.pack(pady=5)
@@ -74,7 +70,6 @@ def agregar_producto():
     boton_limpiar = tk.Button(ventana_producto, text="Limpiar", command=limpiar_formulario_producto)
     boton_limpiar.pack(pady=5)
 
-# Función para buscar un producto por ID
 def buscar_producto():
     def buscar_por_id():
         id_producto = int(entry_id_producto_buscar.get().strip())
@@ -118,7 +113,7 @@ def buscar_producto():
         label_cantidad_valor = tk.Label(ventana_producto_encontrado, text=producto[3])
         label_cantidad_valor.pack(pady=5)
 
-    # Creación de la ventana_buscar
+
     ventana_buscar = tk.Toplevel(ventana_principal)
     ventana_buscar.title("Buscar producto")
 
@@ -131,7 +126,7 @@ def buscar_producto():
     boton_buscar = tk.Button(ventana_buscar, text="Buscar", command=buscar_por_id)
     boton_buscar.pack(pady=5)
 
-# Función para eliminar un producto por ID
+
 def eliminar_producto():
     def eliminar_por_id():
         id_producto = int(entry_id_producto_eliminar.get().strip())
@@ -193,7 +188,7 @@ def recorrer_productos(orden):
     except Exception as e:
         messagebox.showerror("Error", f"Error al recorrer productos: {e}")
 
-# Función para realizar una venta
+
 def realizar_venta():
     producto_seleccionado = None
 
@@ -282,12 +277,58 @@ def realizar_venta():
     boton_realizar_venta = tk.Button(ventana_venta, text="Realizar venta", command=realizar_venta_confirmada)
     boton_realizar_venta.pack(pady=5)
 
-# Función para mostrar el historial de ventas
+def generar_informe_pdf(ventas, productos_en_stock):
+    try:
+        filename = filedialog.asksaveasfilename(defaultextension=".pdf", filetypes=[("PDF files", "*.pdf")])
+        if filename:
+            doc = SimpleDocTemplate(filename, pagesize=letter)
+            elements = []
+
+
+            data_ventas = [["Nombre", "ID", "Cantidad", "Fecha/Hora"]]
+            for venta in ventas:
+                data_ventas.append([venta[1], venta[0], venta[2], venta[3]])
+
+            table_ventas = Table(data_ventas)
+            table_ventas.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                                              ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                                              ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                                              ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                                              ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                                              ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+                                              ('GRID', (0, 0), (-1, -1), 1, colors.black)]))
+            elements.append(table_ventas)
+
+
+            data_stock = [["Nombre", "Precio", "Cantidad"]]
+            for producto in productos_en_stock:
+                data_stock.append([producto[1], producto[2], producto[3]])
+
+            table_stock = Table(data_stock)
+            table_stock.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                                             ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                                             ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                                             ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                                             ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                                             ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+                                             ('GRID', (0, 0), (-1, -1), 1, colors.black)]))
+            elements.append(table_stock)
+
+            doc.build(elements)
+            messagebox.showinfo("Éxito", "Informe PDF generado exitosamente.")
+    except Exception as e:
+        messagebox.showerror("Error", f"Error al generar informe PDF: {e}")
+
 def historial_ventas():
     try:
         conexion, cursor = conectar_db()
-        cursor.execute("SELECT v.id_producto, p.nombre, v.cantidad, v.fecha_hora FROM productos v JOIN BaseDatos p ON v.id_producto = p.id ORDER BY v.fecha_hora DESC")
+        cursor.execute(
+            "SELECT v.id_producto, p.nombre, v.cantidad, v.fecha_hora FROM productos v JOIN BaseDatos p ON v.id_producto = p.id ORDER BY v.fecha_hora DESC")
         ventas = cursor.fetchall()
+
+        cursor.execute("SELECT * FROM BaseDatos")
+        productos_en_stock = cursor.fetchall()
+
         conexion.close()
 
         if ventas:
@@ -298,13 +339,19 @@ def historial_ventas():
             lista_ventas.pack(pady=5)
 
             for venta in ventas:
-                lista_ventas.insert(tk.END, f"{venta[1]} (ID: {venta[0]}, Cantidad: {venta[2]}, Fecha/Hora: {venta[3]})")
+                lista_ventas.insert(tk.END,
+                                    f"{venta[1]} (ID: {venta[0]}, Cantidad: {venta[2]}, Fecha/Hora: {venta[3]})")
+
+
+            boton_descargar_informe = tk.Button(ventana_historial, text="Descargar Informe PDF",
+                                                command=lambda: generar_informe_pdf(ventas, productos_en_stock))
+            boton_descargar_informe.pack(pady=5)
         else:
             messagebox.showinfo("Información", "No hay registros de ventas.")
     except Exception as e:
         messagebox.showerror("Error", f"Error al obtener historial de ventas: {e}")
 
-# Función principal
+
 def main():
     global ventana_principal
     ventana_principal = tk.Tk()

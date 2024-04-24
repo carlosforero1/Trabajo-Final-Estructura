@@ -6,12 +6,11 @@ class ArbolBinario:
         self.raiz = None
 
     def insertar(self, producto):
-        # Si el árbol está vacío, el producto se convierte en la raíz
         if self.raiz is None:
             self.raiz = Nodo(producto["nombre"], producto["id"], producto["precio"], producto["cantidad"])
             return
 
-        # Se busca el lugar adecuado para insertar el producto
+
         nodo_actual = self.raiz
         while True:
             if producto["id"] < nodo_actual.id:
@@ -43,7 +42,7 @@ class ArbolBinario:
         nodo_actual = self.raiz
         while nodo_actual is not None:
             if nodo_actual.id == id_producto:
-                # Se elimina el nodo actual
+
                 if nodo_actual.izquierdo is None and nodo_actual.derecho is None:
                     if nodo_padre is None:
                         self.raiz = None
@@ -56,14 +55,13 @@ class ArbolBinario:
                 elif nodo_actual.derecho is None:
                     nodo_actual = nodo_actual.izquierdo
                 else:
-                    # Se encuentra el sucesor inorden del nodo a eliminar
+
                     nodo_sucesor = nodo_actual.derecho
                     nodo_padre_sucesor = nodo_actual
                     while nodo_sucesor.izquierdo is not None:
                         nodo_padre_sucesor = nodo_sucesor
                         nodo_sucesor = nodo_sucesor.izquierdo
 
-                    # Se reemplaza el nodo actual por su sucesor inorden
                     nodo_actual.id = nodo_sucesor.id
                     nodo_actual.nombre = nodo_sucesor.nombre
                     nodo_actual.precio = nodo_sucesor.precio

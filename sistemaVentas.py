@@ -7,7 +7,7 @@ from pila import Pila
 
 class SistemaVentas:
     def __conn(self):
-        # Conexión a la base de datos SQLite
+
         self.conn = sqlite3.connect("ConfiguracionBaseDatos/BaseDatos.db")
         self.cursor = self.conn.cursor()
 
@@ -19,7 +19,7 @@ class SistemaVentas:
             cantidad INTEGER
         )""")
 
-        # Creación de la tabla ventas (si no existe)
+
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS ventas (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             id_producto INTEGER,
@@ -70,15 +70,15 @@ class SistemaVentas:
         producto = self.arbol_productos.buscar(id_producto)
         if producto is not None:
             if producto.cantidad >= cantidad_venta:
-                # Se actualiza la cantidad del producto en el árbol
+
                 producto.cantidad -= cantidad_venta
 
-                # Se guarda la venta en la pila de historial
+
                 venta = {"id_producto": producto.id, "cantidad": cantidad_venta,
                          "fecha_hora": self._obtener_fecha_hora_actual()}
                 self.pila_historial.apilar(venta)
 
-                # Se guarda la venta en la base de datos (con fecha y hora)
+
                 self.cursor.execute("INSERT INTO productos (id_producto, cantidad, fecha_hora) VALUES (?, ?, ?)",
                                     (producto.id, cantidad_venta, venta["fecha_hora"]))
                 self.conn.commit()
